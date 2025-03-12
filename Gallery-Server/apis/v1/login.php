@@ -10,12 +10,10 @@
         User::create($data["email"],hash("sha3-256",$data["pass"]));
         $user = User::get_by_email_and_pass();
         if($user){
-            echo json_encode(["result"=>$user[0]['id']]);
-            echo json_encode(["message"=>"successfully logged in"]);
+            echo json_encode(["result"=>$user[0]['id'],"message"=>"successfully logged in"] );
             return true;
         }
-        echo json_encode(["result"=>false]);
-        echo json_encode(["message"=>"Something went wrong during logging up"]);
+        echo json_encode(["result"=>false,"message"=>"Email and Password mismatch"]);
         return false;
     }
     echo json_encode(["result"=>false]);
