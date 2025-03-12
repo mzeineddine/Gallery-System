@@ -8,10 +8,12 @@
 
     if(no_missing_parm($data, ["user_id", "img", "title", "description","tag"])){
         $imgs_metadata = Image_metadata::all();
-        foreach($imgs_metadata as $img_metadata){
-            echo json_encode(["result"=>$img_metadata]);
-            echo json_encode(["message"=>"images retrieved"]);
-            return true;
+        if($imgs_metadata){
+            foreach($imgs_metadata as $img_metadata){
+                echo json_encode(["result"=>$img_metadata]);
+                echo json_encode(["message"=>"images retrieved"]);
+                return true;
+            }
         }
         echo json_encode(["result"=>false]);
         echo json_encode(["message"=>"Something went wrong during fetching images"]);

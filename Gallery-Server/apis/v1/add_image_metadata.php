@@ -6,8 +6,15 @@
         $data = $_POST;
     }
 
-    if(no_missing_parm($data, ["user_id", "img", "title", "description","tag"])){
-        Image_metadata::create($data["user_id"],$data["img"], $data["title"],
+    if(no_missing_parm($data, ["user_id", "img", "title", "description","tag", "file_name"])){
+        $out_path =  "../../uploads/".time().$data['fileName'];
+        $ifp = fopen( $out_path, 'wb' ); 
+        $splitted_data = explode(',', $data["img"]);
+        fwrite($ifp, base64_decode( $splitted_data[1]));
+        fclose($ifp); 
+
+        
+        Image_metadata::create($data["user_id"],$out_path, $data["title"],
                                 $data["description"],$data["tag"]);
         if(Image_metadata::save()){
             echo json_encode(["result"=>true]);
@@ -36,4 +43,5 @@
         }
         return $no_missing;
     }
+
 ?>
