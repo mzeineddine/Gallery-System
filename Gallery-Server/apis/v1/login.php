@@ -11,11 +11,11 @@
         $user = User::get_by_email_and_pass();
         if($user){
             echo json_encode(["result"=>$user['id']]);
-            echo json_encode(["message"=>"successfully signed in"]);
+            echo json_encode(["message"=>"successfully logged in"]);
             return true;
         }
         echo json_encode(["result"=>false]);
-        echo json_encode(["message"=>"Something went wrong during signing up"]);
+        echo json_encode(["message"=>"Something went wrong during logging up"]);
         return false;
     }
     echo json_encode(["result"=>false]);
