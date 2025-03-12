@@ -8,7 +8,7 @@
         public static $tag;
 
 
-        function create($user_id, $img, $title = null, $description = null, $tag, $id=-1){
+        static function create($user_id, $img, $title = null, $description = null, $tag, $id=-1){
             self::$id=$id;
             self::$user_id = $user_id;
             self::$img = $img;

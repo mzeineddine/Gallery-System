@@ -10,7 +10,7 @@
         User::create($data["email"],hash("sha3-256",$data["pass"]));
         $user = User::get_by_email_and_pass();
         if($user){
-            echo json_encode(["result"=>$user['id']]);
+            echo json_encode(["result"=>$user[0]['id']]);
             echo json_encode(["message"=>"successfully logged in"]);
             return true;
         }

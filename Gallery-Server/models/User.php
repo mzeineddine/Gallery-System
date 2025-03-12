@@ -1,19 +1,19 @@
 <?php
-    require_once "./User_Skeleton.php";
-    require_once "../connection/connection.php";
+    require_once __DIR__ . "/User_Skeleton.php";
+    require_once __DIR__ . "/../connection/connection.php";
     class User extends User_Skeleton{
         static function check_email(){
             global $conn;
             $query = $conn->prepare("SELECT * FROM users WHERE email=?");
-            $query->bind_param("ss",self::$email);
+            $query->bind_param("s",self::$email);
             if($query->execute()){
                 $response = $query->get_result();
                 return !$response->num_rows>0;
-            }return false;
+            }return true;
         }
         static function save(){
             global $conn;
-            if(!self::check_email()){
+            if(self::check_email()){
                 $query = $conn->prepare("INSERT INTO users (user_name, email, pass) VALUES (?,?,?)");
                 $query->bind_param("sss", self::$user_name, self::$email,self::$pass);
                 $query->execute();
