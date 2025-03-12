@@ -17,16 +17,13 @@
         Image_metadata::create($data["user_id"],$out_path, $data["title"],
                                 $data["description"],$data["tag"]);
         if(Image_metadata::save()){
-            echo json_encode(["result"=>true]);
-            echo json_encode(["message"=>"Image added successfully"]);
+            echo json_encode(["result"=>true,"message"=>"Image added successfully"]);
             return true;
         }
-        echo json_encode(["result"=>false]);
-        echo json_encode(["message"=>"Something went wrong during uploading image"]);
+        echo json_encode(["result"=>false,"message"=>"Something went wrong during uploading image"]);
         return false;
     }
-    echo json_encode(["result"=>false]);
-    echo json_encode(["message"=>"Missing Parameters"]);
+    echo json_encode(["result"=>false,"message"=>"Missing Parameters"]);
     return false;
 
     function no_missing_parm($data, $args){
