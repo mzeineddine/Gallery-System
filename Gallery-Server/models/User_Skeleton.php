@@ -5,7 +5,7 @@
         public static $email;
         public static $pass;
 
-        function create($email, $pass, $name = null, $id = -1){
+        static function create($email, $pass, $name = null, $id = -1){
             self::$id=$id;
             self::$user_name = $name;
             self::$email = $email;
