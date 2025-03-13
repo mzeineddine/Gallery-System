@@ -7,21 +7,19 @@
     }
     if(no_missing_parm($data, ["user_id", "title", "description","tag", "id"])){
         
-        
+        $base = "/Projects/Gallery-System/Gallery-Server";
         if(isset($data['img'])&&$data['img']!="" &&  isset($data['file_name'])&&$data['file_name']!=""){
-
-
-            $time = time();
-            $out_path =  "../../uploads/".$time.$data['file_name'];
-            $ifp = fopen( $out_path, 'wb' ); 
-            $splitted_data = explode(',', $data["img"]);
-            fwrite($ifp, base64_decode( $splitted_data[1]));
-            fclose($ifp);         
-            $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https://" : "http://";
-            $host = $_SERVER['HTTP_HOST'];
-            $imagePath = "/Projects/Gallery-System/Gallery-Server/uploads/".$time.$data['file_name'];;
-            $out_path = $protocol . $host . $imagePath;
-
+            Image_metadata::create($data["user_id"],$data['img'], $data["title"],
+            $data["description"],$data["tag"],$data["id"]);
+            
+            $filePath = Image_metadata::get_image_by_id();
+            $filePath = explode("http://localhost/Projects/Gallery-System/Gallery-Server",$filePath);
+            $filePath ="../../".$filePath[1];            
+            
+            unlink($filePath);
+                
+            
+            $out_path = save_image($data['file_name'], $data['img'], $base);
             Image_metadata::create($data["user_id"],$out_path, $data["title"],
             $data["description"],$data["tag"],$data["id"]);
             if(Image_metadata::update()){
@@ -44,6 +42,20 @@
     }
     echo json_encode(["result"=>false,"message"=>"Missing Parameters"]);
     return false;
+
+    function save_image($file_name,$img, $base){
+        $time = time();
+        $out_path =  "../../uploads/".$time.$file_name;
+        $ifp = fopen( $out_path, 'wb' ); 
+        $splitted_data = explode(',', $img);
+        fwrite($ifp, base64_decode( $splitted_data[1]));
+        fclose($ifp);         
+        $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https://" : "http://";
+        $host = $_SERVER['HTTP_HOST'];
+        $imagePath = $base."/uploads/".$time.$file_name;
+        $out_path = $protocol . $host . $imagePath;
+        return $out_path;
+}
 
     function no_missing_parm($data, $args){
         $no_missing = true;

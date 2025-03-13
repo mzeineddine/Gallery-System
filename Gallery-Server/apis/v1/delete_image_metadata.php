@@ -7,6 +7,13 @@
     }   
     if(no_missing_parm($data, ["user_id", "id"])){
         Image_metadata::create(user_id: $data["user_id"],id: $data["id"]);
+        $filePath = Image_metadata::get_image_by_id();
+        $filePath = explode("http://localhost/Projects/Gallery-System/Gallery-Server",$filePath);
+        $filePath ="../../".$filePath[1];            
+        
+        unlink($filePath);
+                    
+        Image_metadata::create(user_id: $data["user_id"],id: $data["id"]);
         if(Image_metadata::delete()){
             echo json_encode(["result"=>true,"message"=>"Image deleted successfully"]);
             return true;
