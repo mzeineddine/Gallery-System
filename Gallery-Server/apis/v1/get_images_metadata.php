@@ -6,21 +6,17 @@
         $data = $_POST;
     }
 
-    if(no_missing_parm($data, ["user_id", "img", "title", "description","tag"])){
+    if(no_missing_parm($data, ["user_id"])){
+        Image_metadata::create($data["user_id"]);
         $imgs_metadata = Image_metadata::all();
         if($imgs_metadata){
-            foreach($imgs_metadata as $img_metadata){
-                echo json_encode(["result"=>$img_metadata]);
-                echo json_encode(["message"=>"images retrieved"]);
-                return true;
-            }
+            echo json_encode(["result"=>$imgs_metadata,"message"=>"images retrieved"]);
+            return true;
         }
-        echo json_encode(["result"=>false]);
-        echo json_encode(["message"=>"Something went wrong during fetching images"]);
+        echo json_encode(["result"=>false, "message"=>"Something went wrong during fetching images"]);
         return false;
     }
-    echo json_encode(["result"=>false]);
-    echo json_encode(["message"=>"Missing Parameters"]);
+    echo json_encode(["result"=>false,"message"=>"Missing Parameters"]);
     return false;
 
     function no_missing_parm($data, $args){

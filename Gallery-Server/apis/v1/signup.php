@@ -8,17 +8,19 @@
 
     if(no_missing_parm($data, ["email", "pass", "user_name"])){
         User::create($data["email"],hash("sha3-256",$data["pass"]), $data["user_name"]);
-        if(User::save()){
-            echo json_encode(["result"=>true]);
-            echo json_encode(["message"=>"successfully signed up"]);
-            return true;
+        if(User::check_email()){
+            if(User::save()){
+                echo json_encode(["result"=>true,"message"=>"successfully signed up"]);
+                return true;
+            }
+            echo json_encode(["result"=>false,"message"=>"Something went wrong during signing up"]);
+            return false;
+        }else{
+            echo json_encode(["result"=>false,"message"=>"Email already used"]);
+            return false;
         }
-        echo json_encode(["result"=>false]);
-        echo json_encode(["message"=>"Something went wrong during signing up"]);
-        return false;
     }
-    echo json_encode(["result"=>false]);
-    echo json_encode(["message"=>"Missing Parameters"]);
+    echo json_encode(["result"=>false,"message"=>"Missing Parameters"]);
     return false;
 
     function no_missing_parm($data, $args){

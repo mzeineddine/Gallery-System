@@ -27,20 +27,33 @@
         static function update(){
             if(self::$id!=-1){
                 global $conn;
-                $query = $conn->prepare("UPDATE images_metadata SET img = ?  title = ? 
-                                                `description` = ? tag = ? WHERE id=?");
+                $query = $conn->prepare("UPDATE images_metadata SET img = ?,  title = ?, 
+                                                `description` = ?, tag = ? WHERE id=?");
                 $query->bind_param("ssssi",self::$img,self::$title,
                                     self::$description,self::$tag,self::$id);
-                return $query->execute();
+                $query->execute();
+                return $query->affected_rows>0;
+
             }return false;
         }
-
+        static function update_without_img(){
+            if(self::$id!=-1){
+                global $conn;
+                $query = $conn->prepare("UPDATE images_metadata SET  title = ?, 
+                                                `description` = ?, tag = ? WHERE id=?");
+                $query->bind_param("sssi",self::$title,
+                                    self::$description,self::$tag,self::$id);
+                $query->execute();
+                return $query->affected_rows>0;
+            }return false;
+        }
         static function delete(){
             if(self::$id!=-1){
                 global $conn;
                 $query = $conn->prepare("DELETE FROM images_metadata WHERE id=?");
                 $query->bind_param("i",self::$id);
-                return $query->execute();
+                $query->execute();
+                return $query->affected_rows>0;
             }return false;
         }
     }
