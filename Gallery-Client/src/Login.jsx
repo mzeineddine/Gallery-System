@@ -7,6 +7,7 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
+    // sessionStorage.clear();
     const login = async (e) => {
         e.preventDefault();
         if(check_missing([email,password],["email", "password"]) && check_email(email)){
@@ -14,11 +15,12 @@ const Login = () => {
                 email: email,
                 pass : password
             });
-            if(response.data.result != false){
+            if(response.data.result){
+                sessionStorage.setItem('user_id',response.data.result);
+                console.log(sessionStorage.getItem("user_id"))
                 navigate("/Gallery");
             }
             console.log('message:', response.data.message);
-            sessionStorage.setItem('user_id', response.data.result);
             setEmail("");
             setPassword("");
         }
@@ -26,6 +28,12 @@ const Login = () => {
 
     const navigate_to_signup = ()=>{
         navigate("/signup");
+    }
+
+    onload=()=>{
+        if(sessionStorage.hasOwnProperty("user_id")){
+            navigate("/Gallery");
+        }
     }
     return(
         <div className="flex row center height100vh">

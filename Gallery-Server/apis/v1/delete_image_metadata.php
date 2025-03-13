@@ -5,9 +5,8 @@
     } else {
         $data = $_POST;
     }   
-    if(no_missing_parm($data, ["user_id", "img", "title", "description","tag", "id"])){
-        Image_metadata::create($data["user_id"],$data["img"], $data["title"],
-                                $data["description"],$data["tag"],$data["id"]);
+    if(no_missing_parm($data, ["user_id", "id"])){
+        Image_metadata::create(user_id: $data["user_id"],id: $data["id"]);
         if(Image_metadata::delete()){
             echo json_encode(["result"=>true,"message"=>"Image deleted successfully"]);
             return true;

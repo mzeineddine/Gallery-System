@@ -6,7 +6,7 @@ import Login from './Login.jsx'
 import Signup from './Signup.jsx'
 import Gallery from './Gallery.jsx'
 import Edit from './Edit.jsx'
-
+import Add from './Add.jsx'
 
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
@@ -15,6 +15,7 @@ createRoot(document.getElementById('root')).render(
       <Route path="/signup" element={<Signup />} />
       <Route path="/Gallery" element={<Gallery />} />
       <Route path="/Edit" element={<Edit />} />
+      <Route path='/Add' element={<Add />} />
 
     </Routes>
 </BrowserRouter>

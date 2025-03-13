@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import axios from "axios";
 import Image from './Image.jsx'
 import addIcon from './assets/add.svg';
-
 const Gallery = () =>{
+    console.log(sessionStorage.getItem("user_id"))
     // sessionStorage.clear();
     const navigate = useNavigate();
     const base = "http://localhost/Projects/Gallery-System/";
@@ -13,13 +13,12 @@ const Gallery = () =>{
     const handleImageLoad = async () =>{
         if(sessionStorage.hasOwnProperty("user_id")){
             const response = await axios.post(base+'Gallery-Server/apis/v1/get_images_metadata.php', {
-                user_id: sessionStorage.hasOwnProperty("user_id")
+                user_id: sessionStorage.getItem("user_id")
             });
             if(response.data.result != false){
                 setImages(response.data.result);
             }
             console.log('message:', response.data.message);
-            sessionStorage.setItem('user_id', response.data.result);
 
         }else{
             navigate("/");
@@ -27,7 +26,11 @@ const Gallery = () =>{
     }
 
     const navigate_to_add_image = () => {
-        navigate("/add");
+        if(sessionStorage.hasOwnProperty("user_id")){
+            navigate("/Add");
+        }else{
+            navigate("/")
+        }
     }
     return(
         <>

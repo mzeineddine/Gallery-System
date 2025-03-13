@@ -1,52 +1,26 @@
-// description:"aabbcc"
-// id:18
-// img:"http://localhost/uploads/1741825927d.jpg"
-// tag:"a"
-// title: "abc"
-// user_id:1
-import { useLocation } from 'react-router-dom';
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'
 import {check_missing} from './js/utils'
-const Edit = () => {
-    
-    const location = useLocation();
-    const proper = location.state;
-    const base = "http://localhost/Projects/Gallery-System/";
+const Add = () => {
+        const base = "http://localhost/Projects/Gallery-System/";
 
-    const [title, setTitle] = useState(proper.title);
-    const [desc, setDesc] = useState(proper.description);
-    const [tag, setTag] = useState(proper.tag);
-    const [img, setImg] = useState(proper.img);
-    const [img_base64, setImg_base64] = useState("");
-    const [file_name, setFile_name] = useState('');
+    const [title, setTitle] = useState("");
+    const [desc, setDesc] = useState("");
+    const [tag, setTag] = useState("");
+    const [img, setImg] = useState(null);
+    const [img_base64, setImg_base64] = useState();
+    const [file_name, setFile_name] = useState(null);
     const navigate = useNavigate();
-    const delete_img =async (e)=>{
-        e.preventDefault();
-        if(check_missing([title,tag,desc],["title","tag","desc"]) ){
-            const response = await axios.post(base+'Gallery-Server/apis/v1/delete_image_metadata.php', {
-                user_id: proper.user_id,
-                id: proper.id,
-            });
-            if(response.data.result){
-                navigate("/Gallery");
-            }
-            console.log(img_base64);
-            console.log('result:',response.data.result);
-            console.log('message:', response.data.message);
-        }
-    };
-    const update_img =async (e) => {
+    const add_img =async (e) => {
             e.preventDefault();
-            if(check_missing([title,tag,desc],["title","tag","desc"]) ){
-                const response = await axios.post(base+'Gallery-Server/apis/v1/update_image_metadata.php', {
-                    user_id: proper.user_id,
+            if(check_missing([title,tag,desc,img_base64],["title","tag","desc","image"]) ){
+                const response = await axios.post(base+'Gallery-Server/apis/v1/add_image_metadata.php', {
+                    user_id: sessionStorage.getItem("user_id"),
                     img:img_base64,
                     title: title,
                     description:desc,
                     tag: tag,
-                    id: proper.id,
                     file_name: file_name,
 
                 });
@@ -73,6 +47,8 @@ const Edit = () => {
             reader.readAsDataURL(file);
         }
     } 
+    
+    console.log(sessionStorage.getItem("user_id"))
     return(
         <>
             <div className="flex row wrap center gap">
@@ -99,10 +75,9 @@ const Edit = () => {
                         value={desc} onChange={(e) => setDesc(e.target.value)}/>
                 </div>
                 <div className="settings flex column">
-                    <button className="settings-btn" onClick={update_img}>Save</button>
-                    <button className="settings-delete-btn" onClick={delete_img}>Delete</button>
+                    <button className="settings-btn" onClick={add_img}>Save</button>
                 </div>
             </div>
         </>
     );
-};export default Edit;
+};export default Add;
