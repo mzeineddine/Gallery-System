@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom'
 import {check_missing, check_email} from './js/utils'
 const Login = () => {
     const base = "http://localhost/Projects/Gallery-System/";
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
     const login = async (e) => {
         e.preventDefault();
         if(check_missing([email,password],["email", "password"]) && check_email(email)){
@@ -12,12 +14,19 @@ const Login = () => {
                 email: email,
                 pass : password
             });
+            if(response.data.result != false){
+                navigate("/Gallery");
+            }
             console.log('message:', response.data.message);
             sessionStorage.setItem('user_id', response.data.result);
             setEmail("");
             setPassword("");
         }
     };
+
+    const navigate_to_signup = ()=>{
+        navigate("/signup");
+    }
     return(
         <div className="flex row center height100vh">
             <div className="main flex column center">
@@ -53,7 +62,7 @@ const Login = () => {
                         Login
                     </button>
 
-                    <p>Don't have an account? <a href="./signup">register</a></p>
+                    <p>Don't have an account? <a onClick={navigate_to_signup}>signup</a></p>
                 </div>
             </div>
         </div>

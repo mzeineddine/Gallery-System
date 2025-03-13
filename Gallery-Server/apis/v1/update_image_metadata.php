@@ -5,9 +5,23 @@
     } else {
         $data = $_POST;
     }
-    if(no_missing_parm($data, ["user_id", "img", "title", "description","tag", "id"])){
-        Image_metadata::create($data["user_id"],$data["img"], $data["title"],
+    if(no_missing_parm($data, ["user_id", "img", "title", "description","tag", "id", "file_name"])){
+        
+        $time = time();
+        $out_path =  "../../uploads/".$time.$data['file_name'];
+        $ifp = fopen( $out_path, 'wb' ); 
+        $splitted_data = explode(',', $data["img"]);
+        fwrite($ifp, base64_decode( $splitted_data[1]));
+        fclose($ifp);         
+        // Should be changed
+        $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https://" : "http://";
+        $host = $_SERVER['HTTP_HOST'];
+        $imagePath = "/Projects/Gallery-System/Gallery-Server/uploads/".$time.$data['file_name'];;
+        $out_path = $protocol . $host . $imagePath;
+        
+        Image_metadata::create($data["user_id"],$out_path, $data["title"],
                                 $data["description"],$data["tag"],$data["id"]);
+
         if(Image_metadata::update()){
             echo json_encode(["result"=>true,"message"=>"Image deleted successfully"]);
             return true;

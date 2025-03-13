@@ -7,13 +7,18 @@
     }
 
     if(no_missing_parm($data, ["user_id", "img", "title", "description","tag", "file_name"])){
-        $out_path =  "../../uploads/".time().$data['fileName'];
+        $time = time();
+        $out_path =  "../../uploads/".$time.$data['file_name'];
         $ifp = fopen( $out_path, 'wb' ); 
         $splitted_data = explode(',', $data["img"]);
         fwrite($ifp, base64_decode( $splitted_data[1]));
-        fclose($ifp); 
+        fclose($ifp);         
+// Should be changed
+        $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https://" : "http://";
+        $host = $_SERVER['HTTP_HOST'];
+        $imagePath = "/Projects/Gallery-System/Gallery-Server/uploads/".$time.$data['file_name'];;
+        $out_path = $protocol . $host . $imagePath;
 
-        
         Image_metadata::create($data["user_id"],$out_path, $data["title"],
                                 $data["description"],$data["tag"]);
         if(Image_metadata::save()){

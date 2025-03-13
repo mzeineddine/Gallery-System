@@ -1,12 +1,15 @@
 import { useState } from "react";
 import { check_email, check_missing } from "./js/utils";
+import { useNavigate } from 'react-router-dom'
 import axios from "axios";
 
 const Signup = ()=>{
+    sessionStorage.clear();
     const base = "http://localhost/Projects/Gallery-System/";
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [full_name, setFull_name] = useState('');
+    const navigate = useNavigate();
     const signup = async (e) => {
         e.preventDefault();
         if(check_missing([email,password],["email", "password"]) && check_email(email)){
@@ -15,12 +18,18 @@ const Signup = ()=>{
                 email: email,
                 pass : password
             });
-            console.log('message:', response.data.message);
+            if(response.data.result != false){
+                navigate("/")
+            }
             sessionStorage.setItem('user_id', response.data.result);
             setEmail("");
             setPassword("");
             setFull_name("");
         }
+    };
+
+    const navigate_to_login = ()=>{
+        navigate("/");
     };
     return(
         <div className="flex row center height100vh">
@@ -64,10 +73,10 @@ const Signup = ()=>{
                         id='login' 
                         onClick={signup}
                     >
-                        Login
+                        Signup
                     </button>
 
-                    <p>Don't have an account? <a href="./signup">register</a></p>
+                    <p>Have an account? <a onClick={navigate_to_login}>login</a></p>
                 </div>
             </div>
         </div>

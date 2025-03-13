@@ -27,8 +27,8 @@
         static function update(){
             if(self::$id!=-1){
                 global $conn;
-                $query = $conn->prepare("UPDATE images_metadata SET img = ?  title = ? 
-                                                `description` = ? tag = ? WHERE id=?");
+                $query = $conn->prepare("UPDATE images_metadata SET img = ?,  title = ?, 
+                                                `description` = ?, tag = ? WHERE id=?");
                 $query->bind_param("ssssi",self::$img,self::$title,
                                     self::$description,self::$tag,self::$id);
                 return $query->execute();
