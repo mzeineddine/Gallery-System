@@ -27,10 +27,10 @@
             $query->bind_param("ss",self::$email,self::$pass);
             if($query->execute()){
                 $response = $query->get_result();
-                $result = [];
+                $result = null;
                 while($user_db = mysqli_fetch_assoc($response)){
-                    $result[] = $user_db;
-                }return sizeof($result)>0 ? $result : false;
+                    $result = $user_db;
+                }return $result;
             }return false;
         }
 

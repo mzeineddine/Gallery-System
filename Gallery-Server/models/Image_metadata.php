@@ -23,7 +23,18 @@
                 }return sizeof($result)>0 ? $result : false;
             }return false;
         }
-
+        static function get_image_by_id(){
+            global $conn;
+            $query = $conn->prepare("SELECT * FROM images_metadata WHERE id=?");
+            $query->bind_param("i",self::$id);
+            if($query->execute()){
+                $response = $query->get_result();
+                $result = null;
+                while($img_metadata = mysqli_fetch_assoc($response)){
+                    $result = $img_metadata["img"];
+                }return $result;
+            }return false;
+        }
         static function update(){
             if(self::$id!=-1){
                 global $conn;
