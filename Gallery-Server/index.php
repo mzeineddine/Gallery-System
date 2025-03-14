@@ -17,9 +17,10 @@ if ($request == '') {
 $apis = [
     "/signup" => ['controller' => 'User_Controller', "method" => 'signup'],
     "/login"  => ['controller' => 'User_Controller', "method" => 'login'],
-    "/add_image_metadata"       => ['controller' => 'image_metadata_Controller', "method" => 'add_image_metadata'],
-    "/delete_image_metadata"    => ['controller' => 'image_metadata_Controller', "method" => 'delete_image_metadata'],
-    "/update_image_metadata"    => ['controller' => 'image_metadata_Controller', "method" => 'update_image_metadata']
+    "/add_image_metadata"       => ['controller' => 'Image_metadata_Controller', "method" => 'add_image_metadata'],
+    "/delete_image_metadata"    => ['controller' => 'Image_metadata_Controller', "method" => 'delete_image_metadata'],
+    "/update_image_metadata"    => ['controller' => 'Image_metadata_Controller', "method" => 'update_image_metadata'],
+    "/get_images_metadata"    => ['controller' => 'Image_metadata_Controller', "method" => 'get_images_metadata']
 ];
 
 if (isset($apis[$request])) {
