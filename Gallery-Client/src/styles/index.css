@@ -110,6 +110,7 @@ body{
 img{
   width: 100%;
   height: 100%;
+  object-fit: contain;
 }
 .main{
   padding: 1em;
@@ -202,8 +203,6 @@ img{
 
 .image img{
   border-radius: 10px;
-  object-fit: fill;
-
 }
 
 .main_content{

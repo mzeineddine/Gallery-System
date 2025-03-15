@@ -8,7 +8,7 @@ import { useLocation } from 'react-router-dom';
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'
-import {check_missing} from './js/utils'
+import {check_missing} from '../js/utils'
 const Edit = () => {
     
     const location = useLocation();
@@ -18,14 +18,14 @@ const Edit = () => {
     const [title, setTitle] = useState(proper.title);
     const [desc, setDesc] = useState(proper.description);
     const [tag, setTag] = useState(proper.tag);
-    const [img, setImg] = useState(proper.img);
+    const [img, setImg] = useState(base+proper.img);
     const [img_base64, setImg_base64] = useState("");
     const [file_name, setFile_name] = useState('');
     const navigate = useNavigate();
     const delete_img =async (e)=>{
         e.preventDefault();
         if(check_missing([title,tag,desc],["title","tag","desc"]) ){
-            const response = await axios.post(base+'Gallery-Server/apis/v1/delete_image_metadata.php', {
+            const response = await axios.post(base+'Gallery-Server/delete_image_metadata', {
                 user_id: proper.user_id,
                 id: proper.id,
             });
@@ -40,7 +40,7 @@ const Edit = () => {
     const update_img =async (e) => {
             e.preventDefault();
             if(check_missing([title,tag,desc],["title","tag","desc"]) ){
-                const response = await axios.post(base+'Gallery-Server/apis/v1/update_image_metadata.php', {
+                const response = await axios.post(base+'Gallery-Server/update_image_metadata', {
                     user_id: proper.user_id,
                     img:img_base64,
                     title: title,
@@ -76,7 +76,7 @@ const Edit = () => {
     return(
         <>
             <div className="flex row wrap center gap">
-                <div className="settings flex column center">
+                <div className="image settings flex column center">
                     <img src={img}/>
                 </div>
                 <div className="settings flex column center">

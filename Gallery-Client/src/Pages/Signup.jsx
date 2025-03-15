@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { check_email, check_missing } from "./js/utils";
+import { check_email, check_missing } from "../js/utils";
 import { useNavigate } from 'react-router-dom'
 import axios from "axios";
 
@@ -13,7 +13,7 @@ const Signup = ()=>{
     const signup = async (e) => {
         e.preventDefault();
         if(check_missing([email,password],["email", "password"]) && check_email(email)){
-            const response = await axios.post(base+'Gallery-Server/apis/v1/signup.php', {
+            const response = await axios.post(base+'Gallery-Server/signup', {
                 user_name: full_name,
                 email: email,
                 pass : password

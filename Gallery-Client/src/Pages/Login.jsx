@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'
-import {check_missing, check_email} from './js/utils'
+import {check_missing, check_email} from '../js/utils'
 const Login = () => {
     const base = "http://localhost/Projects/Gallery-System/";
     const [email, setEmail] = useState('');
@@ -11,7 +11,7 @@ const Login = () => {
     const login = async (e) => {
         e.preventDefault();
         if(check_missing([email,password],["email", "password"]) && check_email(email)){
-            const response = await axios.post(base+'Gallery-Server/apis/v1/login.php', {
+            const response = await axios.post(base+'Gallery-Server/login', {
                 email: email,
                 pass : password
             });

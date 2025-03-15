@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'
-import {check_missing} from './js/utils'
+import {check_missing} from '../js/utils'
 const Add = () => {
-        const base = "http://localhost/Projects/Gallery-System/";
+    const base = "http://localhost/Projects/Gallery-System/";
 
     const [title, setTitle] = useState("");
     const [desc, setDesc] = useState("");
@@ -15,7 +15,7 @@ const Add = () => {
     const add_img =async (e) => {
             e.preventDefault();
             if(check_missing([title,tag,desc,img_base64],["title","tag","desc","image"]) ){
-                const response = await axios.post(base+'Gallery-Server/apis/v1/add_image_metadata.php', {
+                const response = await axios.post(base+'Gallery-Server/add_image_metadata', {
                     user_id: sessionStorage.getItem("user_id"),
                     img:img_base64,
                     title: title,
@@ -52,7 +52,7 @@ const Add = () => {
     return(
         <>
             <div className="flex row wrap center gap">
-                <div className="settings flex column center">
+                <div className="image settings flex column center">
                     <img src={img}/>
                 </div>
                 <div className="settings flex column center">

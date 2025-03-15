@@ -4,10 +4,12 @@ const Image = ({proper}) => {
     const navigate_to_edit = () => {
         navigate("/Edit", { state: proper });
     }
+    const base = "http://localhost/Projects/Gallery-System";
+
     return(
         <> 
             <div className="image" onClick={navigate_to_edit}>
-                <img src={proper.img} alt="" />
+                <img src={base+proper.img} alt="" />
             </div>
         </>
     );
