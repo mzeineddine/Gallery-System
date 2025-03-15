@@ -4,7 +4,9 @@ const Image = ({proper}) => {
     const navigate_to_edit = () => {
         navigate("/Edit", { state: proper });
     }
-    const base = "http://localhost/Projects/Gallery-System";
+    // const base = "http://localhost/Projects/Gallery-System";
+    const base = "http://13.38.107.39";
+
 
     return(
         <> 

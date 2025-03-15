@@ -13,7 +13,9 @@ const Edit = () => {
     
     const location = useLocation();
     const proper = location.state;
-    const base = "http://localhost/Projects/Gallery-System/";
+    // const base = "http://localhost/Projects/Gallery-System/";
+    const base = "http://13.38.107.39/";
+
 
     const [title, setTitle] = useState(proper.title);
     const [desc, setDesc] = useState(proper.description);

@@ -8,7 +8,9 @@ import addIcon from '../assets/add.svg';
 const Gallery = () =>{
     // sessionStorage.clear();
     const navigate = useNavigate();
-    const base = "http://localhost/Projects/Gallery-System/";
+    // const base = "http://localhost/Projects/Gallery-System/";
+    const base = "http://13.38.107.39/";
+
     const [images, setImages] = useState([]);
     const handleImageLoad = async () =>{
         if(sessionStorage.hasOwnProperty("user_id")){

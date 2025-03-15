@@ -5,7 +5,9 @@ import axios from "axios";
 
 const Signup = ()=>{
     sessionStorage.clear();
-    const base = "http://localhost/Projects/Gallery-System/";
+    // const base = "http://localhost/Projects/Gallery-System/";
+    const base = "http://13.38.107.39/";
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [full_name, setFull_name] = useState('');

@@ -3,7 +3,8 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom'
 import {check_missing} from '../js/utils'
 const Add = () => {
-    const base = "http://localhost/Projects/Gallery-System/";
+    // const base = "http://localhost/Projects/Gallery-System/";
+    const base = "http://13.38.107.39/";
 
     const [title, setTitle] = useState("");
     const [desc, setDesc] = useState("");
