@@ -45,11 +45,9 @@
             $no_missing = true;
             for($i = 0; $i<sizeof($args); $i++){
                 if(!isset($data[$args[$i]])){
-                    echo "missing " . $args[$i];
                     return false;
                 }
                 if($data[$args[$i]]==""){
-                    echo "missing " . $args[$i];
                     return false;
                 }
             }

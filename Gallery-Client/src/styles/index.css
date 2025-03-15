@@ -110,6 +110,7 @@ body{
 img{
   width: 100%;
   height: 100%;
+  object-fit: contain;
 }
 .main{
   padding: 1em;
@@ -202,10 +203,14 @@ img{
 
 .image img{
   border-radius: 10px;
-  object-fit: fill;
-
 }
-
+.selected-image{
+  width: 10em;
+  height: 10em;
+  border-radius: 10px;
+  padding: 5px;
+  background-color: var(--main-bg-btn-color);
+}
 .main_content{
   min-height: 75%;
   font-size: 18px;
@@ -251,6 +256,22 @@ img{
   font-weight: bold;
 }
 
+.tags{
+  padding-top: 25px;
+  gap: 1em;
+  overflow: auto;
+  scrollbar-width: none;
+}
+
+.tag{
+  width: 15%;
+  min-width: 100px;
+  min-height: min-content;
+}
+
+.tag-selected{
+  background-color: #02d371;
+}
 
 /* 320px, 480px, 768px, 1024px*/
 @media (max-width: 1024) {
