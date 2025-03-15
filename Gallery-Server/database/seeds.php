@@ -1,6 +1,6 @@
 <?php
     $base = "..";
-    require $base . "/connections/connection.php";
+    require $base . "/connection/connection.php";
     
     function save_image_metadata($user_id, $img,$title,$description, $tag){
         global $conn;

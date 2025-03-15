@@ -1,6 +1,6 @@
 <?php
 $base = "..";
-    require $base . "/connections/connection.php";
+    require $base . "/connection/connection.php";
     $query = $conn->prepare("CREATE TABLE IF NOT EXISTS`images_metadata` (
                                         `id` int(11) NOT NULL,
                                         `user_id` int(11) NOT NULL,
