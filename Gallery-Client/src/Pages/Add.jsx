@@ -52,7 +52,7 @@ const Add = () => {
     return(
         <>
             <div className="flex row wrap center gap">
-                <div className="image settings flex column center">
+                <div className="selected-image settings flex column center">
                     <img src={img}/>
                 </div>
                 <div className="settings flex column center">
